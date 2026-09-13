@@ -1,0 +1,12 @@
+{
+	"/": [],
+	"/api/credits": [
+		"src/routes/api/credits/+server.ts"
+	],
+	"/api/questions": [
+		"src/routes/api/questions/+server.ts"
+	],
+	"/api/scores": [
+		"src/routes/api/scores/+server.ts"
+	]
+}

@@ -1,0 +1,8 @@
+onlyBuiltDependencies:
+  - esbuild
+  - lefthook
+  - workerd
+allowBuilds:
+  esbuild: false
+  lefthook: false
+  workerd: false
