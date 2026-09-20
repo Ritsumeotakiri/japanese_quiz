@@ -1,9 +1,0 @@
-INSERT OR IGNORE INTO questions (id, level, type, prompt, translation, options_json, answer, explanation, created_at) VALUES
-  ('n4-04', 'N4', 'single', 'Choose the reading for 電車.', '電車（でんしゃ） means train.', '["でんき","でんしゃ","てんしゃ","でんじゃ"]', 'でんしゃ', '電車 is read でんしゃ and means train.', '2026-09-20T00:00:00.000Z'),
-  ('n4-05', 'N4', 'true-false', '「高い」 can mean “expensive.”', '「高い」 can mean “expensive.”', NULL, 'true', '高い（たかい） means high or expensive, depending on context.', '2026-09-20T00:00:01.000Z'),
-  ('n4-06', 'N4', 'single', 'Choose the closest meaning of 始める.', 'What does 始める（はじめる） mean?', '["to finish","to begin","to forget","to borrow"]', 'to begin', '始める（はじめる） means to begin or start something.', '2026-09-20T00:00:02.000Z'),
-  ('n4-07', 'N4', 'true-false', '「来週」 means “next week.”', '「来週」 means “next week.”', NULL, 'true', '来週（らいしゅう） means next week.', '2026-09-20T00:00:03.000Z'),
-  ('n3-04', 'N3', 'single', 'Choose the reading for 改善.', '改善（かいぜん） means improvement.', '["かいぜん","かいせん","がいぜん","かんぜん"]', 'かいぜん', '改善 is read かいぜん and means improvement or to improve.', '2026-09-20T00:00:04.000Z'),
-  ('n3-05', 'N3', 'true-false', '「適切」 means “appropriate.”', '「適切」 means “appropriate.”', NULL, 'true', '適切（てきせつ） means appropriate or suitable.', '2026-09-20T00:00:05.000Z'),
-  ('n3-06', 'N3', 'single', 'Choose the closest meaning of 防ぐ.', 'What does 防ぐ（ふせぐ） mean?', '["to prevent","to compare","to invite","to prepare"]', 'to prevent', '防ぐ（ふせぐ） means to prevent or protect against something.', '2026-09-20T00:00:06.000Z'),
-  ('n3-07', 'N3', 'true-false', '「複雑」 can mean “complicated.”', '「複雑」 can mean “complicated.”', NULL, 'true', '複雑（ふくざつ） means complicated or complex.', '2026-09-20T00:00:07.000Z');

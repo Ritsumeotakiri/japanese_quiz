@@ -27,6 +27,5 @@ dist-ssr
 *.sw?
 *.sdf
 
-
-/migrations 
+/migrations/
 
