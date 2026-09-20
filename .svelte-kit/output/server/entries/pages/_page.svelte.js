@@ -13,6 +13,7 @@ function _page($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
 		let language = "en";
 		let selectedLevel = "N4";
+		let leaderboardLevel = "N4";
 		let currentIndex = 0;
 		let correctAnswers = 0;
 		let selectedAnswer = "";
@@ -32,6 +33,8 @@ function _page($$renderer, $$props) {
 				credits: "Credits",
 				addQuestion: "Add question",
 				questionBank: "Question bank",
+				viewQuestions: "View questions",
+				noQuestions: "No questions in this level yet.",
 				questionPrompt: "Question prompt",
 				translationPrompt: "English translation or reading hint",
 				answerChoices: "Answer choices",
@@ -84,6 +87,8 @@ function _page($$renderer, $$props) {
 				credits: "クレジット",
 				addQuestion: "問題を追加",
 				questionBank: "問題バンク",
+				viewQuestions: "問題を見る",
+				noQuestions: "このレベルにはまだ問題がありません。",
 				questionPrompt: "問題文",
 				translationPrompt: "英訳または読み方のヒント",
 				answerChoices: "選択肢",
@@ -125,6 +130,7 @@ function _page($$renderer, $$props) {
 		};
 		let text = derived(() => copy[language]);
 		let quizQuestions = derived(() => questionsForLevel(questions, selectedLevel));
+		derived(() => questionsForLevel(questions, leaderboardLevel));
 		let currentQuestion = derived(() => quizQuestions()[currentIndex]);
 		derived(() => calculateScore(correctAnswers, quizQuestions().length));
 		derived(() => currentQuestion() ? selectedAnswer === currentQuestion().answer : false);
@@ -133,7 +139,7 @@ function _page($$renderer, $$props) {
 				$$renderer.push(`<title>${escape_html(text().eyebrow)} | Japanese Quiz</title>`);
 			});
 		});
-		$$renderer.push(`<div class="app-shell"><header class="topbar"><button class="brand" type="button"${attr("aria-label", text().back)}><span class="brand-mark">言</span> <span>${escape_html(text().eyebrow)}</span></button> <nav aria-label="Main navigation"><button type="button"${attr_class("", void 0, { "active": false })}>${escape_html(text().leaderboard)}</button> <button type="button"${attr_class("", void 0, { "active": false })}>${escape_html(text().credits)}</button> <button type="button"${attr_class("", void 0, { "active": false })}>${escape_html(text().addQuestion)}</button> <div class="language-switch"${attr("aria-label", text().language)}><button type="button"${attr_class("", void 0, { "active": true })}>EN</button> <button type="button"${attr_class("", void 0, { "active": false })}>JP</button></div></nav></header> `);
+		$$renderer.push(`<div class="app-shell"><header class="topbar"><button class="brand" type="button"${attr("aria-label", text().back)}><span class="brand-mark">言</span> <span>${escape_html(text().eyebrow)}</span></button> <nav aria-label="Main navigation"><button type="button"${attr_class("", void 0, { "active": false })}>${escape_html(text().leaderboard)}</button> <button type="button"${attr_class("", void 0, { "active": false })}>${escape_html(text().credits)}</button> <button type="button"${attr_class("", void 0, { "active": false })}>${escape_html(text().addQuestion)}</button> <button type="button"${attr_class("", void 0, { "active": false })}>${escape_html(text().viewQuestions)}</button> <div class="language-switch"${attr("aria-label", text().language)}><button type="button"${attr_class("", void 0, { "active": true })}>EN</button> <button type="button"${attr_class("", void 0, { "active": false })}>JP</button></div></nav></header> `);
 		$$renderer.push(`<!--[0--><main class="home-page"><section class="hero-block"><div class="hero-kicker"><span class="dot"></span>${escape_html(text().eyebrow)}<span class="line"></span><span>2026</span></div> <h1>${escape_html(text().title)}</h1> <p>${escape_html(text().intro)}</p></section> <section class="track-section" aria-labelledby="track-heading"><div class="section-heading"><div><span class="section-index">01 /</span> <h2 id="track-heading">${escape_html(text().choose)}</h2></div> <span class="annotation">JLPT · ${escape_html("LEARNING TRACKS")}</span></div> <div class="track-grid"><button${attr_class("track-card n4", void 0, { "chosen": true })} type="button"><span class="track-number">01</span><span class="level-label">JLPT</span><strong>N4</strong> <span class="track-title">${escape_html(text().n4Title)}</span> <p>${escape_html(text().n4Description)}</p> <span class="select-indicator">${escape_html("●")}</span></button> <button${attr_class("track-card n3", void 0, { "chosen": false })} type="button"><span class="track-number">02</span><span class="level-label">JLPT</span><strong>N3</strong> <span class="track-title">${escape_html(text().n3Title)}</span> <p>${escape_html(text().n3Description)}</p> <span class="select-indicator">${escape_html("○")}</span></button></div> <button class="primary-action" type="button">${escape_html(text().start)}<span>↗</span></button></section> <section class="home-footer"><span>WORDS HAVE WEIGHT.</span><span>言葉には重みがある。</span><span>EST. 2026</span></section></main>`);
 		$$renderer.push(`<!--]--></div>`);
 	});

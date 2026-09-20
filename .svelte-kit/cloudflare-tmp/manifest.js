@@ -10,7 +10,7 @@ return {
 	assets: new Set([]),
 	mimeTypes: {},
 	_: {
-		client: {start:"_app/immutable/entry/start.qNIWGEgk.js",app:"_app/immutable/entry/app.C-r5rNs3.js",imports:["_app/immutable/entry/start.qNIWGEgk.js","_app/immutable/chunks/Chl7MP7t.js","_app/immutable/chunks/CDfyJK-t.js","_app/immutable/entry/app.C-r5rNs3.js","_app/immutable/chunks/CDfyJK-t.js","_app/immutable/chunks/xihTtKlq.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
+		client: {start:"_app/immutable/entry/start.CztomYes.js",app:"_app/immutable/entry/app.Dc3lSm-F.js",imports:["_app/immutable/entry/start.CztomYes.js","_app/immutable/chunks/qpAl2MNK.js","_app/immutable/chunks/CDfyJK-t.js","_app/immutable/entry/app.Dc3lSm-F.js","_app/immutable/chunks/CDfyJK-t.js","_app/immutable/chunks/xihTtKlq.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
 			__memo(() => import('../output/server/nodes/0.js')),
 			__memo(() => import('../output/server/nodes/1.js')),
@@ -26,6 +26,13 @@ return {
 				params: [],
 				page: { layouts: [0,], errors: [1,], leaf: 2 },
 				endpoint: null
+			},
+			{
+				id: "/api/credits",
+				pattern: /^\/api\/credits\/?$/,
+				params: [],
+				page: null,
+				endpoint: __memo(() => import('../output/server/entries/endpoints/api/credits/_server.ts.js'))
 			},
 			{
 				id: "/api/questions",

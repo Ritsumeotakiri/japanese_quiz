@@ -1,11 +1,11 @@
--- UPDATE credits
--- SET contribution = 'Everything · product, questions, engineering, and design'
--- WHERE id = 'say-sakphearith';
+UPDATE credits
+SET contribution = 'Everything · product, questions, engineering, and design'
+WHERE id = 'say-sakphearith';
 
--- INSERT OR IGNORE INTO questions (id, level, type, prompt, translation, options_json, answer, explanation, created_at) VALUES
---   ('n4-01', 'N4', 'true-false', '「毎日」 means “every day.”', '「毎日」 means “every day.”', NULL, 'true', '毎日（まいにち） means every day.', '2026-09-13T00:00:00.000Z'),
---   ('n4-02', 'N4', 'single', 'Choose the reading for 学校.', '学校（がっこう） means school.', '["がくせい","がっこう","せんせい","きょうしつ"]', 'がっこう', '学校 is read がっこう and means school.', '2026-09-13T00:00:01.000Z'),
---   ('n4-03', 'N4', 'true-false', '「昨日」 means “tomorrow.”', '「昨日」 means “tomorrow.”', NULL, 'false', '昨日（きのう） means yesterday. Tomorrow is 明日（あした）.', '2026-09-13T00:00:02.000Z'),
---   ('n3-01', 'N3', 'single', 'Choose the closest meaning of 影響.', 'What does 影響（えいきょう） mean?', '["influence","schedule","solution","promise"]', 'influence', '影響（えいきょう） means influence or effect.', '2026-09-13T00:00:03.000Z'),
---   ('n3-02', 'N3', 'true-false', '「環境」 can mean “environment.”', '「環境」 can mean “environment.”', NULL, 'true', '環境（かんきょう） means environment or surroundings.', '2026-09-13T00:00:04.000Z'),
---   ('n3-03', 'N3', 'single', 'Choose the reading for 経験.', '経験（けいけん） means experience.', '["けいけん","けんこう","けいかく","けんきゅう"]', 'けいけん', '経験 is read けいけん and means experience.', '2026-09-13T00:00:05.000Z');
+INSERT OR IGNORE INTO questions (id, level, type, prompt, translation, options_json, answer, explanation, created_at) VALUES
+  ('n4-01', 'N4', 'true-false', '「毎日」 means “every day.”', '「毎日」 means “every day.”', NULL, 'true', '毎日（まいにち） means every day.', '2026-09-13T00:00:00.000Z'),
+  ('n4-02', 'N4', 'single', 'Choose the reading for 学校.', '学校（がっこう） means school.', '["がくせい","がっこう","せんせい","きょうしつ"]', 'がっこう', '学校 is read がっこう and means school.', '2026-09-13T00:00:01.000Z'),
+  ('n4-03', 'N4', 'true-false', '「昨日」 means “tomorrow.”', '「昨日」 means “tomorrow.”', NULL, 'false', '昨日（きのう） means yesterday. Tomorrow is 明日（あした）.', '2026-09-13T00:00:02.000Z'),
+  ('n3-01', 'N3', 'single', 'Choose the closest meaning of 影響.', 'What does 影響（えいきょう） mean?', '["influence","schedule","solution","promise"]', 'influence', '影響（えいきょう） means influence or effect.', '2026-09-13T00:00:03.000Z'),
+  ('n3-02', 'N3', 'true-false', '「環境」 can mean “environment.”', '「環境」 can mean “environment.”', NULL, 'true', '環境（かんきょう） means environment or surroundings.', '2026-09-13T00:00:04.000Z'),
+  ('n3-03', 'N3', 'single', 'Choose the reading for 経験.', '経験（けいけん） means experience.', '["けいけん","けんこう","けいかく","けんきゅう"]', 'けいけん', '経験 is read けいけん and means experience.', '2026-09-13T00:00:05.000Z');

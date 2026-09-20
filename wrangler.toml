@@ -1,11 +1,14 @@
 name = "japanese-quiz"
 compatibility_date = "2026-09-13"
+main = ".svelte-kit/cloudflare/_worker.js"
 
 [assets]
 directory = ".svelte-kit/cloudflare"
+binding = "ASSETS"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "japanese-quiz"
 database_id = "7255caf1-4624-4e1f-a108-dcef2542e409"
 migrations_dir = "migrations"
+remote = true

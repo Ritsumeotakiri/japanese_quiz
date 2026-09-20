@@ -2,7 +2,7 @@ import { json } from "@sveltejs/kit";
 //#region src/lib/server/questions.ts
 async function listQuestions(level, env) {
 	if (env?.DB) try {
-		const query = level ? "SELECT id, level, type, prompt, translation, options_json as optionsJson, answer, explanation FROM questions WHERE level = ? ORDER BY created_at DESC" : "SELECT id, level, type, prompt, translation, options_json as optionsJson, answer, explanation FROM questions ORDER BY created_at DESC";
+		const query = level ? "SELECT id, level, type, prompt, translation, options_json as optionsJson, answer, explanation FROM questions WHERE level = ? ORDER BY created_at ASC" : "SELECT id, level, type, prompt, translation, options_json as optionsJson, answer, explanation FROM questions ORDER BY created_at ASC";
 		return (level ? await env.DB.prepare(query).bind(level).all() : await env.DB.prepare(query).bind().all()).results.map(({ optionsJson, ...question }) => ({
 			...question,
 			options: optionsJson ? JSON.parse(optionsJson) : void 0
