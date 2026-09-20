@@ -1,10 +1,11 @@
 import { json } from '@sveltejs/kit'
-import { listQuestions, saveQuestion } from '$lib/server/questions'
+import { app_config } from '$lib/config'
+import { deleteQuestion, listQuestions, saveQuestion, updateQuestion } from '$lib/server/questions'
 import type { Level, QuestionInput, QuestionType } from '$lib/types'
 import type { RequestHandler } from './$types'
 
-const levels: Level[] = ['N4', 'N3']
-const questionTypes: QuestionType[] = ['true-false', 'single']
+const levels: Level[] = [...app_config.levels]
+const question_types: QuestionType[] = [...app_config.questionTypes]
 
 export const GET: RequestHandler = async ({ url, platform }) => {
   const level = url.searchParams.get('level') as Level | null
@@ -14,39 +15,62 @@ export const GET: RequestHandler = async ({ url, platform }) => {
 
 export const POST: RequestHandler = async ({ request, platform }) => {
   const body = (await request.json().catch(() => null)) as Partial<QuestionInput> | null
+  const input = body && parseQuestionInput(body)
+  if (!input) return json({ error: 'Invalid question data' }, { status: 400 })
+  const question = await saveQuestion(input, platform?.env)
+  return json({ question }, { status: 201 })
+}
+
+function parseQuestionInput(body: Partial<QuestionInput>): QuestionInput | null {
   if (
     !body ||
     !levels.includes(body.level as Level) ||
-    !questionTypes.includes(body.type as QuestionType) ||
+    !question_types.includes(body.type as QuestionType) ||
     typeof body.prompt !== 'string' ||
     typeof body.translation !== 'string' ||
+    (body.type === 'listening' && typeof body.audioUrl !== 'string') ||
     typeof body.answer !== 'string' ||
     typeof body.explanation !== 'string'
   ) {
-    return json({ error: 'Level, type, prompt, answer, and explanation are required' }, { status: 400 })
+    return null
   }
 
   const options =
-    body.type === 'single' && Array.isArray(body.options)
-      ? body.options.map(String).filter(Boolean).slice(0, 4)
+    ['single', 'reading', 'listening'].includes(body.type as string) && Array.isArray(body.options)
+      ? body.options.map(String).filter(Boolean).slice(0, app_config.question.maxOptions)
       : undefined
-  if (body.type === 'single' && (!options || options.length < 2 || !options.includes(body.answer))) {
-    return json({ error: 'Single-answer questions need at least two options including the answer' }, { status: 400 })
+  if (
+    ['single', 'reading', 'listening'].includes(body.type as string) &&
+    (!options || options.length < app_config.question.minimumOptions || !options.includes(body.answer))
+  ) {
+    return null
   }
 
-  const level = body.level as Level
-  const type = body.type as QuestionType
-  const question = await saveQuestion(
-    {
-      level,
-      type,
-      prompt: body.prompt.trim().slice(0, 240),
-      translation: body.translation.trim().slice(0, 240),
-      options,
-      answer: body.answer.trim().slice(0, 120),
-      explanation: body.explanation.trim().slice(0, 300),
-    },
-    platform?.env,
-  )
-  return json({ question }, { status: 201 })
+  return {
+    level: body.level as Level,
+    type: body.type as QuestionType,
+    prompt: body.prompt.trim().slice(0, app_config.question.maxPromptLength),
+    translation: body.translation.trim().slice(0, app_config.question.maxTranslationLength),
+    audioUrl:
+      body.type === 'listening' ? body.audioUrl?.trim().slice(0, app_config.question.maxAudioUrlLength) : undefined,
+    options,
+    answer: body.answer.trim().slice(0, app_config.question.maxAnswerLength),
+    explanation: body.explanation.trim().slice(0, app_config.question.maxExplanationLength),
+  }
+}
+
+export const PATCH: RequestHandler = async ({ request, platform }) => {
+  const body = (await request.json().catch(() => null)) as (Partial<QuestionInput> & { id?: string }) | null
+  if (!body?.id) return json({ error: 'Question id is required' }, { status: 400 })
+  const input = parseQuestionInput(body)
+  if (!input) return json({ error: 'Invalid question data' }, { status: 400 })
+  const question = await updateQuestion(body.id, input, platform?.env)
+  return json({ question })
+}
+
+export const DELETE: RequestHandler = async ({ url, platform }) => {
+  const id = url.searchParams.get('id')
+  if (!id) return json({ error: 'Question id is required' }, { status: 400 })
+  await deleteQuestion(id, platform?.env)
+  return new Response(null, { status: 204 })
 }

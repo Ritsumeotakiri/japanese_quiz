@@ -1,9 +1,10 @@
 import { json } from '@sveltejs/kit'
+import { app_config } from '$lib/config'
 import { listScores, saveScore } from '$lib/server/scores'
 import type { Level } from '$lib/types'
 import type { RequestHandler } from './$types'
 
-const levels: Level[] = ['N4', 'N3']
+const levels: Level[] = [...appConfig.levels]
 
 export const GET: RequestHandler = async ({ url, platform }) => {
   const level = url.searchParams.get('level') as Level
@@ -17,11 +18,16 @@ export const POST: RequestHandler = async ({ request, platform }) => {
     return json({ error: 'Name, level, and score are required' }, { status: 400 })
   }
 
-  const name = body.name.trim().slice(0, 24)
+  const name = body.name.trim().slice(0, app_config.score.maxNameLength)
   if (!name) return json({ error: 'Name cannot be empty' }, { status: 400 })
 
   const score = await saveScore(
-    { name, level: body.level, score: Math.max(0, Math.min(100, body.score)), total: Number(body.total) || 0 },
+    {
+      name,
+      level: body.level,
+      score: Math.max(0, Math.min(app_config.score.maxScore, body.score)),
+      total: Number(body.total) || 0,
+    },
     platform?.env,
   )
   return json({ score }, { status: 201 })

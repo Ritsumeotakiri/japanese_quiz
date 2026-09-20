@@ -9,6 +9,10 @@
       "_internal2.js"
     ]
   },
+  "_config.js": {
+    "file": "chunks/config.js",
+    "name": "config"
+  },
   "_env.js": {
     "file": "chunks/env.js",
     "name": "env"
@@ -118,7 +122,7 @@
       "_server.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.CkeJeYQ1.css"
+      "_app/immutable/assets/_layout.DliDdrmm.css"
     ]
   },
   "src/routes/+page.svelte": {
@@ -128,7 +132,8 @@
     "isEntry": true,
     "imports": [
       "_index-server.js",
-      "_server.js"
+      "_server.js",
+      "_config.js"
     ]
   },
   "src/routes/api/credits/+server.ts": {
@@ -141,13 +146,19 @@
     "file": "entries/endpoints/api/questions/_server.ts.js",
     "name": "entries/endpoints/api/questions/_server.ts",
     "src": "src/routes/api/questions/+server.ts",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_config.js"
+    ]
   },
   "src/routes/api/scores/+server.ts": {
     "file": "entries/endpoints/api/scores/_server.ts.js",
     "name": "entries/endpoints/api/scores/_server.ts",
     "src": "src/routes/api/scores/+server.ts",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_config.js"
+    ]
   },
   "virtual:__sveltekit/env": {
     "file": "env.js",

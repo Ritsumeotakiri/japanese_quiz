@@ -1,4 +1,5 @@
 import type { Level, Score } from '$lib/types'
+import { app_config } from '$lib/config'
 
 type D1DatabaseLike = {
   prepare: (query: string) => {
@@ -16,7 +17,7 @@ export async function listScores(level: Level, env?: ScoreEnv): Promise<Score[]>
   if (env?.DB) {
     try {
       const result = await env.DB.prepare(
-        'SELECT id, name, level, score, total, created_at as createdAt FROM scores WHERE level = ? ORDER BY score DESC, created_at ASC LIMIT 50',
+        `SELECT id, name, level, score, total, created_at as createdAt FROM scores WHERE level = ? ORDER BY score DESC, created_at ASC LIMIT ${app_config.score.leaderboardLimit}`,
       )
         .bind(level)
         .all<Score>()
@@ -30,14 +31,14 @@ export async function listScores(level: Level, env?: ScoreEnv): Promise<Score[]>
 }
 
 export async function saveScore(input: Omit<Score, 'id' | 'createdAt'>, env?: ScoreEnv): Promise<Score> {
-  const createdAt = new Date().toISOString()
+  const created_at = new Date().toISOString()
   if (env?.DB) {
     try {
       const id = crypto.randomUUID()
       await env.DB.prepare('INSERT INTO scores (id, name, level, score, total, created_at) VALUES (?, ?, ?, ?, ?, ?)')
-        .bind(id, input.name, input.level, input.score, input.total, createdAt)
+        .bind(id, input.name, input.level, input.score, input.total, created_at)
         .run()
-      return { ...input, id, createdAt }
+      return { ...input, id, createdAt: created_at }
     } catch (error) {
       throw new Error(`D1 score insert failed: ${String(error)}`)
     }

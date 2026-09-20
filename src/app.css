@@ -334,6 +334,11 @@ p {
   color: var(--muted);
   font-size: 14px;
 }
+.question-audio {
+  display: block;
+  width: min(100%, 520px);
+  margin-top: 28px;
+}
 .answer-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -589,6 +594,109 @@ p {
   font-family: 'Manrope', sans-serif;
   font-size: 13px;
   text-transform: none;
+}
+.question-list-actions {
+  display: flex;
+  gap: 18px;
+  margin-top: 18px;
+}
+.question-list-actions .text-action {
+  margin: 0;
+}
+.question-list-actions .danger-action {
+  color: var(--coral);
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 24px;
+  color: var(--muted);
+  font: 10px var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pagination-button {
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  background: transparent;
+  font: inherit;
+  text-transform: uppercase;
+}
+.pagination-button:hover:not(:disabled) {
+  color: var(--paper);
+  background: var(--ink);
+}
+.pagination-button:disabled {
+  cursor: not-allowed;
+}
+.dialog-backdrop {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(22, 34, 30, 0.58);
+}
+.confirm-dialog {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 18px;
+  width: min(100%, 500px);
+  padding: 28px;
+  border: 1px solid var(--ink);
+  background: var(--paper-light);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+.confirm-dialog-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  color: var(--paper-light);
+  background: var(--coral);
+  font: 18px var(--mono);
+}
+.confirm-dialog h2 {
+  margin-top: 9px;
+  font-size: 28px;
+  line-height: 1;
+}
+.confirm-dialog p {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.confirm-dialog strong {
+  display: block;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+}
+.confirm-dialog-actions {
+  grid-column: 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  align-items: center;
+  margin-top: 8px;
+}
+.dialog-delete-action {
+  padding: 12px 15px;
+  border: 1px solid var(--coral);
+  color: var(--paper-light);
+  background: var(--coral);
+  font: 10px var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.dialog-delete-action:hover {
+  color: var(--ink);
+  background: transparent;
 }
 .bottom-link {
   display: block;

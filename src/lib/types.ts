@@ -1,5 +1,5 @@
 export type Level = 'N4' | 'N3'
-export type QuestionType = 'true-false' | 'single'
+export type QuestionType = 'true-false' | 'single' | 'reading' | 'listening'
 
 export interface Question {
   id: string
@@ -7,6 +7,7 @@ export interface Question {
   type: QuestionType
   prompt: string
   translation: string
+  audioUrl?: string
   options?: string[]
   answer: string
   explanation: string
